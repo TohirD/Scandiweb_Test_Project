@@ -22,7 +22,6 @@ const ProductPage: React.FC = () => {
     Record<string, string>
   >({});
 
-  // ❗ hook BEFORE any early returns, and safe when product is undefined
   const allAttributesSelected = useMemo(() => {
     if (!product) return false;
     return product.attributes.every(
@@ -59,7 +58,6 @@ const ProductPage: React.FC = () => {
       <div className="product-details">
         <h1 className="product-title">{product.name}</h1>
 
-        {/* Attributes */}
         {product.attributes.map((attr) => (
           <AttributeSelector
             key={attr.id}
@@ -70,7 +68,6 @@ const ProductPage: React.FC = () => {
           />
         ))}
 
-        {/* Price */}
         <div className="product-price-block">
           <div className="attribute-name">PRICE:</div>
           <div className="product-price-big">
@@ -83,7 +80,6 @@ const ProductPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Add to cart */}
         <button
           type="button"
           className="add-to-cart-btn"
@@ -94,7 +90,6 @@ const ProductPage: React.FC = () => {
           ADD TO CART
         </button>
 
-        {/* Description */}
         <div className="product-description" data-testid="product-description">
           {stripHtml(product.description)}
         </div>

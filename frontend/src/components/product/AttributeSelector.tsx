@@ -6,9 +6,7 @@ interface Props {
   attribute: AttributeSet;
   selectedValue?: string;
   onSelect?: (value: string) => void;
-  /** if true, render as non-clickable (used in overlay) */
   readOnly?: boolean;
-  /** for PDP: special tests on container */
   isProductPage?: boolean;
 }
 

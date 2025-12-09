@@ -67,13 +67,12 @@ const CartOverlay: React.FC<CartOverlayProps> = ({ isOpen, onClose }) => {
 
   return (
     <>
-      {/* Clickable overlay to close */}
       <div className="cart-overlay-backdrop" onClick={onClose} />
 
       <aside className="cart-overlay-panel">
         <h2 className="cart-overlay-title">
           <span>My Bag, </span>
-          <span>{itemsLabel}</span>
+          <span className='itemm'>{itemsLabel}</span>
         </h2>
 
         <div className="cart-overlay-list">

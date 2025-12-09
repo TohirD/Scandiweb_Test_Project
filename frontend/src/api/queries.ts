@@ -1,9 +1,6 @@
 import type { Category } from '../types/category';
 import type { Product } from '../types/product';
 
-/**
- * === GraphQL Query Strings ===
- */
 
 export const GET_CATEGORIES = /* GraphQL */ `
   query GetCategories {
@@ -77,9 +74,7 @@ export const GET_PRODUCT = /* GraphQL */ `
   }
 `;
 
-/**
- * === TypeScript types for responses/variables ===
- */
+
 
 export interface GetCategoriesData {
   categories: Category[];

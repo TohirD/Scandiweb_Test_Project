@@ -41,7 +41,6 @@ const Header: React.FC<HeaderProps> = ({ onCartClick, isCartOpen }) => {
       </nav>
 
       <div className="header-center">
-        {/* Simple text logo, you can replace with SVG later */}
         <Link to="/category/all" className="logo">
             <img src="/a-logo.png" alt="Scandi Shop logo" className="logo-image" />
         </Link>

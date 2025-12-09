@@ -8,21 +8,17 @@ use function FastRoute\simpleDispatcher;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-// ---------- CORS HEADERS ----------
 $origin = $_SERVER['HTTP_ORIGIN'] ?? '*';
 header('Access-Control-Allow-Origin: ' . $origin);
 header('Access-Control-Allow-Methods: GET, POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Authorization, X-Requested-With');
 header('Access-Control-Allow-Credentials: true');
 
-// Preflight (OPTIONS) -> just say OK and exit
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'OPTIONS') {
     http_response_code(204);
     exit;
 }
-// ----------------------------------
 
-// Load environment from .env if Dotenv is installed
 if (class_exists(Dotenv::class)) {
     $dotenv = Dotenv::createImmutable(__DIR__ . '/..');
     $dotenv->safeLoad();
@@ -30,7 +26,6 @@ if (class_exists(Dotenv::class)) {
 
 // Router
 $dispatcher = simpleDispatcher(static function (RouteCollector $r): void {
-    // NOTE: now this matches the namespace above: App\Controller\GraphQL
     $r->addRoute('POST', '/graphql', [App\Controller\GraphQL::class, 'handle']);
 });
 

@@ -14,7 +14,6 @@ export function useProductDetails(id?: string) {
 
   useEffect(() => {
     if (!id) {
-      // no id yet (e.g. route not ready)
       return;
     }
 
@@ -27,7 +26,6 @@ export function useProductDetails(id?: string) {
       try {
         const data = await graphqlRequest<GetProductData, GetProductVariables>({
           query: GET_PRODUCT,
-          // we KNOW id exists here because of the early return above
           variables: { id: id! },
         });
 

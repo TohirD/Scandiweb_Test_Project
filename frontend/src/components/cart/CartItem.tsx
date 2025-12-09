@@ -15,7 +15,6 @@ const CartItem: React.FC<Props> = ({ item, onIncrease, onDecrease }) => {
 
   return (
     <div className="cart-item">
-      {/* LEFT COLUMN – name, price, attributes */}
       <div className="cart-item-info">
         <div className="cart-item-name">{item.product.name}</div>
 
@@ -76,7 +75,6 @@ const CartItem: React.FC<Props> = ({ item, onIncrease, onDecrease }) => {
         ))}
       </div>
 
-      {/* MIDDLE COLUMN – vertical + 1 - controls */}
       <div className="cart-item-qty">
         <button
           type="button"
@@ -101,7 +99,6 @@ const CartItem: React.FC<Props> = ({ item, onIncrease, onDecrease }) => {
         </button>
       </div>
 
-      {/* RIGHT COLUMN – image */}
       <div className="cart-item-image-wrapper">
         {mainImage && (
           <img

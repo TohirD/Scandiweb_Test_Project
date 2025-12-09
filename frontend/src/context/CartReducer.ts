@@ -36,9 +36,7 @@ export type CartAction =
       type: 'CLEAR_CART';
     };
 
-/**
- * Build a stable key for a cart line from product id + selected attributes.
- */
+
 export function buildCartItemId(
   productId: string,
   selectedAttributes: SelectedAttribute[]
@@ -138,9 +136,7 @@ export function cartReducer(state: CartState, action: CartAction): CartState {
   }
 }
 
-/**
- * Load initial state from localStorage, if available.
- */
+
 export function loadCartStateFromStorage(): CartState {
   if (typeof window === 'undefined') {
     return initialCartState;
@@ -159,14 +155,11 @@ export function loadCartStateFromStorage(): CartState {
   }
 }
 
-/**
- * Persist state to localStorage.
- */
+
 export function persistCartState(state: CartState): void {
   if (typeof window === 'undefined') return;
   try {
     window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(state));
   } catch {
-    // ignore storage errors
   }
 }

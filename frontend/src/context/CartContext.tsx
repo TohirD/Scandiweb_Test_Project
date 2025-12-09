@@ -48,7 +48,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [state, dispatch] = useReducer(
     cartReducer,
     initialCartState,
-    () => loadCartStateFromStorage() // initializer
+    () => loadCartStateFromStorage() 
   );
 
   useEffect(() => {

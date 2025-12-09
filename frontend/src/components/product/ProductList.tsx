@@ -23,7 +23,6 @@ const ProductList: React.FC<ProductListProps> = ({ category }) => {
     const product = products.find((p) => p.id === productId);
     if (!product) return;
 
-    // default attributes: first option from each set
     const selected: SelectedAttribute[] = product.attributes.map((set) => ({
       name: set.name,
       value: set.items[0]?.value ?? '',

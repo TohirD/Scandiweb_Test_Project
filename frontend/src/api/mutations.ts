@@ -18,9 +18,6 @@ export const CREATE_ORDER = /* GraphQL */ `
   }
 `;
 
-/**
- * TS mirror of backend input & output types
- */
 
 export interface SelectedAttributeInput {
   name: string;
