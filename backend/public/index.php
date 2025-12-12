@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+
 use Dotenv\Dotenv;
 use FastRoute\RouteCollector;
 use function FastRoute\simpleDispatcher;

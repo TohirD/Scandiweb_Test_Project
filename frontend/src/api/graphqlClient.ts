@@ -4,7 +4,9 @@ import type {
   GraphQLResponse,
 } from '../types/graphql';
 
-const GRAPHQL_ENDPOINT = 'http://localhost:8000/graphql';
+// const GRAPHQL_ENDPOINT = 'http://localhost:8000/graphql';
+const GRAPHQL_ENDPOINT = 'https://scandiweb-test-project.onrender.com/graphql';
+
 
 export async function graphqlRequest<TData, TVariables = Record<string, unknown>>(
   options: GraphQLRequestOptions<TVariables>

@@ -14,53 +14,75 @@ const Header: React.FC<HeaderProps> = ({ onCartClick, isCartOpen }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const match = /^\/category\/([^/]+)/.exec(location.pathname);
-  const activeCategory = match ? match[1] : 'all';
+  let activeCategory = 'all';
 
-  const handleCategoryClick = (name: string) => {
+  const categoryMatchFromCategoryRoute =
+    /^\/category\/([^/]+)/.exec(location.pathname);
+  const categoryMatchFromRoot = /^\/([^/]+)/.exec(location.pathname);
+
+  if (categoryMatchFromCategoryRoute && categoryMatchFromCategoryRoute[1]) {
+    activeCategory = categoryMatchFromCategoryRoute[1];
+  } else if (
+    location.pathname !== '/' &&
+    categoryMatchFromRoot &&
+    categoryMatchFromRoot[1]
+  ) {
+    activeCategory = categoryMatchFromRoot[1];
+  }
+
+  const handleCategoryClick = (
+    name: string,
+    event: React.MouseEvent<HTMLAnchorElement>,
+  ) => {
+    event.preventDefault();
     navigate(`/category/${name}`);
   };
 
   return (
     <header className="header">
       <nav className="header-left">
-        {categories.map((cat) => (
-          <button
-            key={cat.name}
-            type="button"
-            className={
-              cat.name === activeCategory
-                ? 'nav-link nav-link-active'
-                : 'nav-link'
-            }
-            onClick={() => handleCategoryClick(cat.name)}
-          >
-            {cat.name.toUpperCase()}
-          </button>
-        ))}
+        {categories.map((cat) => {
+          const isActive = cat.name === activeCategory;
+
+          return (
+            <a
+              key={cat.name}
+              href={`/${cat.name}`}
+              className={isActive ? 'nav-link nav-link-active' : 'nav-link'}
+              data-testid={
+                isActive ? 'active-category-link' : 'category-link'
+              }
+              onClick={(e) => handleCategoryClick(cat.name, e)}
+              style={{ textDecoration: 'none' }} 
+            >
+              {cat.name.toUpperCase()}
+            </a>
+          );
+        })}
       </nav>
 
       <div className="header-center">
         <Link to="/category/all" className="logo">
-            <img src="/a-logo.png" alt="Scandi Shop logo" className="logo-image" />
+          <img
+            src="/a-logo.png"
+            alt="Scandi Shop logo"
+            className="logo-image"
+          />
         </Link>
       </div>
 
       <div className="header-right">
         <button
-        type="button"
-        className={`cart-btn ${isCartOpen ? 'cart-btn-active' : ''}`}
-        onClick={onCartClick}
-        data-testid="cart-btn"
-        aria-label="Open cart"
+          type="button"
+          className={`cart-btn ${isCartOpen ? 'cart-btn-active' : ''}`}
+          onClick={onCartClick}
+          data-testid="cart-btn"
+          aria-label="Open cart"
         >
-        <img src="/Cart.png" alt="Cart" className="cart-icon" />
-
-        {totalQuantity > 0 && (
-          <span className="cart-btn-badge">
-            {totalQuantity}
-          </span>
-        )}
+          <img src="/Cart.png" alt="Cart" className="cart-icon" />
+          {totalQuantity > 0 && (
+            <span className="cart-btn-badge">{totalQuantity}</span>
+          )}
         </button>
       </div>
     </header>
@@ -68,3 +90,5 @@ const Header: React.FC<HeaderProps> = ({ onCartClick, isCartOpen }) => {
 };
 
 export default Header;
+
+

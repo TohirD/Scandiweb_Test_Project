@@ -15,40 +15,58 @@ const AttributeSelector: React.FC<Props> = ({
   selectedValue,
   onSelect,
   readOnly = false,
-  isProductPage = false,
+  isProductPage,
 }) => {
-  const containerTestId = isProductPage
-    ? `product-attribute-${toKebabCase(attribute.name)}`
-    : undefined;
-
   const handleClick = (item: AttributeItem) => {
     if (readOnly || !onSelect) return;
     onSelect(item.value);
   };
 
+  const attributeKey = attribute.name.toLowerCase();
+  const isColorAttribute = attributeKey === 'color';
+  const isCapacityAttribute = attributeKey === 'capacity';
+
+  const containerTestId = isProductPage
+    ? `product-attribute-${toKebabCase(attribute.name)}`
+    : undefined;
+
   return (
-    <div
-      className="attribute-set"
-      data-testid={containerTestId}
-    >
-      <div className="attribute-name">{attribute.name.toUpperCase()}:</div>
+    <div className="attribute-set" data-testid={containerTestId}>
+      <div className="attribute-name">{attribute.name}:</div>
+
       <div className="attribute-items">
         {attribute.items.map((item) => {
-          const isSelected = item.value === selectedValue;
+          const isSelected = selectedValue === item.value;
+
           const baseClass =
             attribute.type === 'swatch'
               ? 'attribute-item attribute-swatch'
               : 'attribute-item attribute-text';
 
-          const className = `${baseClass} ${
-            isSelected ? 'attribute-selected' : ''
-          } ${readOnly ? 'attribute-readonly' : ''}`;
+          const className = [
+            baseClass,
+            isSelected ? 'attribute-selected' : '',
+            readOnly ? 'attribute-readonly' : '',
+          ]
+            .filter(Boolean)
+            .join(' ');
+
+          let itemTestId: string | undefined;
+
+          if (isColorAttribute) {
+            const key = item.id || item.value;
+            itemTestId = `product-attribute-color-${key}`;
+          } else if (isCapacityAttribute) {
+            const key = item.id || item.value;
+            itemTestId = `product-attribute-capacity-${key}`;
+          }
 
           return (
             <button
               key={item.id}
               type="button"
               className={className}
+              data-testid={itemTestId}
               style={
                 attribute.type === 'swatch'
                   ? { backgroundColor: item.value }

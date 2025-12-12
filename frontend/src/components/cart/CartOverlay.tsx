@@ -52,6 +52,7 @@ const CartOverlay: React.FC<CartOverlayProps> = ({ isOpen, onClose }) => {
         query: CREATE_ORDER,
         variables,
       });
+
       clearCart();
       onClose();
     } catch (e) {
@@ -61,18 +62,24 @@ const CartOverlay: React.FC<CartOverlayProps> = ({ isOpen, onClose }) => {
     }
   };
 
-  if (!isOpen) return null;
+  if (!isOpen) {
+    return null;
+  }
 
   const itemsLabel = totalQuantity === 1 ? '1 item' : `${totalQuantity} items`;
 
   return (
     <>
-      <div className="cart-overlay-backdrop" onClick={onClose} />
+      <div
+        className="cart-overlay-backdrop"
+        onClick={onClose}
+        style={{ pointerEvents: 'none' }}
+      />
 
-      <aside className="cart-overlay-panel">
+      <aside className="cart-overlay-panel" data-testid="cart-overlay">
         <h2 className="cart-overlay-title">
           <span>My Bag, </span>
-          <span className='itemm'>{itemsLabel}</span>
+          <span className="itemm">{itemsLabel}</span>
         </h2>
 
         <div className="cart-overlay-list">
@@ -112,4 +119,3 @@ const CartOverlay: React.FC<CartOverlayProps> = ({ isOpen, onClose }) => {
 };
 
 export default CartOverlay;
-
